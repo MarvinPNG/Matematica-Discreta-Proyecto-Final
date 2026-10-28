@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Marvin José Díaz Ortega">
+  <meta name="description" content="Micrositio académico sobre teoría de grafos: definiciones, propiedades, ejemplos resueltos y aplicación en ingeniería. Matemática Discreta, Sección B, Universidad Mariano Gálvez de Guatemala.">
+  <meta name="theme-color" content="#0e2b4a">
+  <title>Teoría de Grafos | Matemática Discreta · UMG</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido principal</a>
+
+  <!-- ===================== CABECERA INSTITUCIONAL ===================== -->
+  <header class="site-header" id="inicio">
+    <div class="wrap header-grid">
+      <div class="brand">
+        <img class="brand-logo" src="logo-umg.webp" alt="Escudo de la Universidad Mariano Gálvez de Guatemala" width="96" height="96">
+        <div class="brand-text">
+          <p class="eyebrow">Universidad Mariano Gálvez de Guatemala</p>
+          <p class="faculty">Facultad de Ingeniería en Sistemas</p>
+          <p class="faculty">Sede San Pedro Sacatepéquez, San Marcos</p>
+          <h1>Teoría de Grafos</h1>
+          <p class="header-sub">
+            <span>Matemática Discreta</span>
+            <span>Sección B</span>
+            <span>Segundo Semestre</span>
+          </p>
+        </div>
+      </div>
+
+      <aside class="id-card" aria-labelledby="datos-estudiante">
+        <h2 id="datos-estudiante">Datos del estudiante</h2>
+        <dl class="id-list">
+          <div><dt>Estudiante</dt><dd>Marvin José Díaz Ortega</dd></div>
+          <div><dt>Carné</dt><dd class="highlight">0903-26-23499</dd></div>
+          <div><dt>Carrera</dt><dd>Ingeniería en Sistemas de la Información y Ciencias de la Computación</dd></div>
+          <div><dt>Sede</dt><dd>San Pedro Sacatepéquez, San Marcos</dd></div>
+          <div><dt>Curso</dt><dd>Matemática Discreta</dd></div>
+          <div><dt>Sección</dt><dd>B</dd></div>
+          <div><dt>Semestre</dt><dd>Segundo</dd></div>
+          <div><dt>Catedrática</dt><dd>Ing. Samaria Belén Coyoy Ixquiac</dd></div>
+          <div><dt>Entrega</dt><dd>31/10/2026</dd></div>
+        </dl>
+      </aside>
+    </div>
+
+    <div class="header-foot">
+      <div class="wrap">
+        <p><strong>Proyecto individual</strong> · Micrositio académico</p>
+        <p>Guatemala, 31 de octubre de 2026</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== NAVEGACIÓN ===================== -->
+  <nav class="site-nav" aria-label="Navegación principal">
+    <div class="wrap">
+      <ul class="nav-list">
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#introduccion">Introducción</a></li>
+        <li><a href="#teoria">Desarrollo teórico</a></li>
+        <li><a href="#ejemplos">Ejemplos resueltos</a></li>
+        <li><a href="#aplicacion">Aplicación</a></li>
+        <li><a href="#conclusiones">Conclusiones</a></li>
+        <li><a href="#referencias">Referencias</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="contenido">
+    <!-- ===================== INTRODUCCIÓN ===================== -->
+    <section class="section" id="introduccion">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="section-num" aria-hidden="true">01</span>
+          <div>
+            <h2>Introducción</h2>
+            <p class="section-kicker">Qué es un grafo, por qué importa en ingeniería y qué se desarrolla en este micrositio.</p>
+          </div>
+        </div>
+
+        <div class="intro-grid">
+          <div class="card">
+            <p class="lead">La teoría de grafos es la rama de la matemática discreta que estudia las relaciones entre un conjunto de objetos. Su modelo básico —el grafo— reduce un problema real a dos elementos: los objetos de interés y las conexiones entre ellos.</p>
+            <p>Formalmente, un grafo se define como un par <var>G</var> = (<var>V</var>, <var>E</var>), donde <var>V</var> es el conjunto de vértices y <var>E</var> el conjunto de aristas. Esta abstracción permite representar con el mismo lenguaje una red de carreteras, el cableado de un campus, las dependencias entre tareas de un proyecto o las conexiones entre módulos de software.</p>
+            <p>Su importancia en la Ingeniería en Sistemas de la Información y Ciencias de la Computación radica en que muchas decisiones de diseño son, en el fondo, preguntas sobre grafos: ¿existe una ruta entre dos nodos?, ¿cuál es la más corta?, ¿cómo conectar todos los edificios con el menor costo?, ¿cuántos canales o colores se necesitan para evitar interferencias? Responder estas preguntas con herramientas formales evita decidir por intuición y permite justificar técnicamente una solución.</p>
+            <p>Este trabajo desarrolla las definiciones y propiedades esenciales, las representaciones matriciales, los algoritmos de ruta más corta y de árbol de expansión mínima, tres ejercicios resueltos por niveles y un caso aplicado al diseño de la red de datos de un campus universitario.</p>
+          </div>
+
+          <div class="stack">
+            <div class="card">
+              <h3 class="card-title">Objetivos</h3>
+              <ul class="def-list">
+                <li>Definir formalmente grafo, vértice, arista, grado y subgrafo.</li>
+                <li>Clasificar los grafos y reconocer sus representaciones matriciales.</li>
+                <li>Aplicar el teorema del apretón de manos en la verificación de grados.</li>
+                <li>Resolver rutas mínimas con Dijkstra y árboles de expansión mínima con Kruskal.</li>
+                <li>Modelar un problema de infraestructura y comunicar los resultados.</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3 class="card-title">Alcance</h3>
+              <p class="small muted">El desarrollo se limita a grafos finitos, no dirigidos y ponderados con pesos no negativos. Los algoritmos se presentan en su versión clásica, sin análisis amortizado ni estructuras de datos avanzadas.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ===================== DESARROLLO TEÓRICO ===================== -->
+    <section class="section" id="teoria">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="section-num" aria-hidden="true">02</span>
+          <div>
+            <h2>Desarrollo teórico</h2>
+            <p class="section-kicker">Definiciones, clasificación, propiedades, representaciones y algoritmos fundamentales.</p>
+          </div>
+        </div>
+
+        <div class="stack">
+          <article class="theory-item">
+            <h3><span class="h-num">2.1</span> Definición y elementos de un grafo</h3>
+            <div class="theory-grid">
+              <div>
+                <p>Un <strong>grafo</strong> es una estructura matemática formada por un conjunto de vértices y un conjunto de aristas que relacionan pares de vértices. En un grafo no dirigido, el orden del par no importa: la arista que une <var>u</var> con <var>v</var> es la misma que une <var>v</var> con <var>u</var>.</p>
+                <ul class="def-list">
+                  <li><strong>Vértice o nodo (<var>V</var>):</strong> unidad u objeto que se modela.</li>
+                  <li><strong>Arista (<var>E</var>):</strong> conexión entre dos vértices.</li>
+                  <li><strong>Orden:</strong> número de vértices, |<var>V</var>|.</li>
+                  <li><strong>Tamaño:</strong> número de aristas, |<var>E</var>|.</li>
+                  <li><strong>Adyacencia:</strong> dos vértices son adyacentes si los une una arista.</li>
+                  <li><strong>Incidencia:</strong> una arista es incidente en los vértices que conecta.</li>
+                  <li><strong>Lazo:</strong> arista que une un vértice consigo mismo.</li>
+                  <li><strong>Aristas paralelas:</strong> dos o más aristas que unen el mismo par de vértices.</li>
+                </ul>
+                <div class="formula">
+                  <p><var>G</var> = (<var>V</var>, <var>E</var>), &nbsp; <var>V</var> = {<var>v</var><sub>1</sub>, <var>v</var><sub>2</sub>, …, <var>v</var><sub><var>n</var></sub>}, &nbsp; <var>E</var> ⊆ {{<var>u</var>, <var>v</var>} : <var>u</var>, <var>v</var> ∈ <var>V</var>, <var>u</var> ≠ <var>v</var>}</p>
+                  <span class="formula-note">Definición de grafo simple no dirigido</span>
+                </div>
+                <p>Un <strong>subgrafo</strong> se obtiene al tomar un subconjunto de vértices y un subconjunto de aristas del grafo original. Los subgrafos permiten estudiar partes de una red sin perder la información de cómo se conectan entre sí.</p>
+              </div>
+              <div>
+                <figure class="media-figure">
+                  <svg viewBox="0 0 290 285" role="img" aria-label="Grafo simple no dirigido de cinco vértices con un ciclo exterior y una diagonal entre los vértices v2 y v4.">
+                    <line class="svg-edge" x1="140" y1="45" x2="240" y2="117.5"/>
+                    <line class="svg-edge" x1="240" y1="117.5" x2="202" y2="235"/>
+                    <line class="svg-edge" x1="202" y1="235" x2="78" y2="235"/>
+                    <line class="svg-edge" x1="78" y1="235" x2="40" y2="117.5"/>
+                    <line class="svg-edge" x1="40" y1="117.5" x2="140" y2="45"/>
+                    <line class="svg-edge" x1="240" y1="117.5" x2="78" y2="235"/>
+                    <circle class="svg-node" cx="140" cy="45" r="17"/>
+                    <circle class="svg-node" cx="240" cy="117.5" r="17"/>
+                    <circle class="svg-node" cx="202" cy="235" r="17"/>
+                    <circle class="svg-node" cx="78" cy="235" r="17"/>
+                    <circle class="svg-node" cx="40" cy="117.5" r="17"/>
+                    <text class="svg-label" x="140" y="50" text-anchor="middle">v1</text>
+                    <text class="svg-label" x="240" y="122" text-anchor="middle">v2</text>
+                    <text class="svg-label" x="202" y="240" text-anchor="middle">v3</text>
+                    <text class="svg-label" x="78" y="240" text-anchor="middle">v4</text>
+                    <text class="svg-label" x="40" y="122" text-anchor="middle">v5</text>
+                  </svg>
+                  <figcaption><span class="fig-label">Figura 1.</span> Grafo simple no dirigido <var>G</var> con |<var>V</var>| = 5 y |<var>E</var>| = 6. La arista v2–v4 es una diagonal; no hay lazos ni aristas paralelas.</figcaption>
+                </figure>
+              </div>
+            </div>
+          </article>
+
+          <article class="theory-item">
+            <h3><span class="h-num">2.2</span> Clasificación de los grafos</h3>
+            <p>Los grafos se clasifican según la orientación de sus aristas, la presencia de pesos, la posibilidad de conexiones múltiples y la forma de su conjunto de vértices. Reconocer el tipo de grafo es el primer paso para elegir la representación y el algoritmo adecuados.</p>
+
+            <div class="table-wrap">
+              <table>
+                <caption><strong>Tabla 1.</strong> Clasificación de grafos según su estructura.</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Ejemplo de aplicación</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>No dirigido</strong></td>
+                    <td>Las aristas no tienen orientación y se representan como pares no ordenados {<var>u</var>, <var>v</var>}.</td>
+                    <td>Red de carreteras de doble vía.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Dirigido</strong> (dígrafo)</td>
+                    <td>Cada arista es un par ordenado (<var>u</var>, <var>v</var>) y se dibuja con una flecha desde <var>u</var> hasta <var>v</var>.</td>
+                    <td>Dependencias entre tareas o enlaces de una página web.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Ponderado</strong></td>
+                    <td>Cada arista lleva un valor numérico <var>w</var>(<var>e</var>) llamado peso o costo.</td>
+                    <td>Distancias, tiempos de recorrido o costos de cableado.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Simple</strong></td>
+                    <td>No contiene lazos ni aristas paralelas.</td>
+                    <td>Grafo de la Figura 1.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Multígrafo</strong></td>
+                    <td>Admite dos o más aristas entre el mismo par de vértices, o lazos.</td>
+                    <td>Conexiones redundantes entre dos servidores.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Bipartito</strong></td>
+                    <td><var>V</var> se divide en dos conjuntos disjuntos y toda arista une un vértice de cada conjunto.</td>
+                    <td>Asignación de tareas a personas.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Completo</strong> (<var>K</var><sub><var>n</var></sub>)</td>
+                    <td>Todo par de vértices distintos es adyacente.</td>
+                    <td>Red totalmente mallada.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Árbol</strong></td>
+                    <td>Grafo conexo y acíclico.</td>
+                    <td>Estructura jerárquica de directorios.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="formula">
+              <p>|<var>E</var>(<var>K</var><sub><var>n</var></sub>)| = <span style="white-space: nowrap;"><var>n</var>(<var>n</var> − 1) / 2</span></p>
+              <span class="formula-note">Número de aristas del grafo completo de <var>n</var> vértices</span>
+            </div>
+
+            <p>Un caso de interés práctico es el <strong>grafo bipartito</strong>, porque modela problemas de asignación: si los vértices de un conjunto representan tareas y los del otro, recursos disponibles, cada arista indica que un recurso puede realizar cierta tarea. Determinar si un grafo es bipartito equivale a comprobar que se puede colorear con dos colores sin que dos vértices adyacentes compartan color.</p>
+          </article>
+
+          <article class="theory-item">
+            <h3><span class="h-num">2.3</span> Grado de un vértice y teorema del apretón de manos</h3>
+            <p>El <strong>grado</strong> de un vértice, denotado <var>g</var>(<var>v</var>) o <var>deg</var>(<var>v</var>), es el número de aristas incidentes en él. Un lazo contribuye con dos unidades al grado, porque incide dos veces en el mismo vértice. En un grafo dirigido se distingue el <strong>grado de entrada</strong> (aristas que llegan) y el <strong>grado de salida</strong> (aristas que salen).</p>
+
+            <div class="formula">
+              <p>∑<sub><var>v</var> ∈ <var>V</var></sub> <var>g</var>(<var>v</var>) = 2|<var>E</var>|</p>
+              <span class="formula-note">Teorema del apretón de manos (suma de grados)</span>
+            </div>
+
+            <p>Cada arista aporta exactamente dos extremos a la suma de grados; por eso la suma siempre es par. De este hecho se deduce un corolario útil para detectar datos inconsistentes en un modelo.</p>
+
+            <div class="callout">
+              <p class="callout__label">Corolario</p>
+              <p>En todo grafo, el número de vértices de grado impar es par.</p>
+            </div>
+
+            <p>En el grafo de la Figura 1 los grados son <var>g</var>(v1) = 2, <var>g</var>(v2) = 3, <var>g</var>(v3) = 2, <var>g</var>(v4) = 3 y <var>g</var>(v5) = 2. La suma es 12, que coincide con 2|<var>E</var>| = 2(6) = 12, y los vértices de grado impar (v2 y v4) son dos, es decir, una cantidad par.</p>
+
+            <ul class="def-list">
+              <li><strong>Grado mínimo (δ):</strong> el menor grado entre todos los vértices.</li>
+              <li><strong>Grado máximo (Δ):</strong> el mayor grado entre todos los vértices.</li>
+              <li><strong>Grafo regular:</strong> todos sus vértices tienen el mismo grado.</li>
+              <li><strong>Grafo dirigido:</strong> la suma de grados de entrada es igual a la suma de grados de salida, y ambas son iguales a |<var>E</var>|.</li>
+            </ul>
+
+            <div class="callout callout--navy">
+              <p class="callout__label">Para recordar</p>
+              <p>El teorema no depende de cómo se dibuje el grafo. Si al modelar una red se obtiene una suma de grados impar, existe un error en el conteo de aristas o en la definición de los vértices.</p>
+            </div>
+          </article>
+
+          <article class="theory-item">
+            <h3><span class="h-num">2.4</span> Caminos, ciclos, conectividad y árboles</h3>
+            <p>Un <strong>camino</strong> es una secuencia alternada de vértices y aristas en la que cada arista conecta el vértice anterior con el siguiente. Si no se repiten aristas se habla de <strong>recorrido</strong> (<em>trail</em>); si no se repiten vértices, de <strong>camino simple</strong>. Un <strong>ciclo</strong> es un camino cerrado que no repite vértices intermedios, y su longitud es el número de aristas que contiene.</p>
+            <p>Un grafo es <strong>conexo</strong> cuando existe al menos un camino entre cualquier par de vértices. Si no lo es, se descompone en <strong>componentes conexas</strong>. La <strong>distancia</strong> <var>d</var>(<var>u</var>, <var>v</var>) es la longitud del camino más corto entre <var>u</var> y <var>v</var>; el mayor de esos valores es el <strong>diámetro</strong> del grafo.</p>
+
+            <div class="callout">
+              <p class="callout__label">Propiedades de los árboles</p>
+              <p>Un árbol con <var>n</var> vértices cumple tres condiciones equivalentes: es conexo y acíclico; tiene exactamente <var>n</var> − 1 aristas; y entre cada par de vértices existe un único camino simple.</p>
+            </div>
+
+            <ul class="def-list">
+              <li><strong>Árbol de expansión:</strong> subgrafo que contiene todos los vértices y es un árbol. Todo grafo conexo tiene al menos uno.</li>
+              <li><strong>Puente:</strong> arista cuya eliminación incrementa el número de componentes conexas.</li>
+              <li><strong>Vértice de corte:</strong> vértice cuya eliminación desconecta el grafo.</li>
+              <li><strong>Bosque:</strong> grafo acíclico que puede estar formado por varios árboles.</li>
+            </ul>
+
+            <div class="formula">
+              <p><var>T</var> es árbol &nbsp;⇒&nbsp; |<var>E</var>(<var>T</var>)| = |<var>V</var>(<var>T</var>)| − 1</p>
+              <span class="formula-note">Relación fundamental entre aristas y vértices en un árbol</span>
+            </div>
+
+            <p>Esta relación explica por qué un árbol es la estructura conexa más económica posible: no contiene ninguna arista que pueda eliminarse sin desconectar el grafo. Al añadir una arista a un árbol se crea exactamente un ciclo; al quitar una arista, el árbol deja de ser conexo.</p>
+          </article>
+
+          <article class="theory-item">
+            <h3><span class="h-num">2.5</span> Representación matricial y listas de adyacencia</h3>
+            <p>Un grafo puede almacenarse de distintas formas. La elección depende del tamaño del grafo y del tipo de operaciones que se realicen: consultar si dos vértices son adyacentes, recorrer los vecinos de un vértice o calcular caminos de cierta longitud.</p>
+
+            <h4>Matriz de adyacencia</h4>
+            <p>Es una matriz cuadrada <var>A</var> de tamaño <var>n</var> × <var>n</var>, donde <var>a</var><sub><var>ij</var></sub> = 1 si existe una arista entre <var>v</var><sub><var>i</var></sub> y <var>v</var><sub><var>j</var></sub>, y 0 en caso contrario. Para grafos no dirigidos la matriz es simétrica y la suma de cada fila coincide con el grado del vértice correspondiente.</p>
+
+            <div class="table-wrap">
+              <table>
+                <caption><strong>Tabla 2.</strong> Matriz de adyacencia de un grafo con aristas 1–2, 1–3, 2–3 y 3–4.</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Vértice</th>
+                    <th scope="col" class="center">1</th>
+                    <th scope="col" class="center">2</th>
+                    <th scope="col" class="center">3</th>
+                    <th scope="col" class="center">4</th>
+                    <th scope="col" class="center">Grado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td class="center">0</td>
+                    <td class="center">1</td>
+                    <td class="center">1</td>
+                    <td class="center">0</td>
+                    <td class="center">2</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td class="center">1</td>
+                    <td class="center">0</td>
+                    <td class="center">1</td>
+                    <td class="center">0</td>
+                    <td class="center">2</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td class="center">1</td>
+                    <td class="center">1</td>
+                    <td class="center">0</td>
+                    <td class="center">1</td>
+                    <td class="center">3</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">4</th>
+                    <td class="center">0</td>
+                    <td class="center">0</td>
+                    <td class="center">1</td>
+                    <td class="center">0</td>
+                    <td class="center">1</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p>La matriz de adyacencia ocupa <var>O</var>(<var>n</var><sup>2</sup>) posiciones de memoria, lo cual es eficiente para grafos densos pero desperdicia espacio en grafos dispersos. Además, la entrada (<var>i</var>, <var>j</var>) de la potencia <var>A</var><sup><var>k</var></sup> indica el número de caminos de longitud exactamente <var>k</var> entre <var>v</var><sub><var>i</var></sub> y <var>v</var><sub><var>j</var></sub>.</p>
+
+            <h4>Lista de adyacencia</h4>
+            <p>Cada vértice almacena la lista de sus vecinos. Esta representación utiliza <var>O</var>(|<var>V</var>| + |<var>E</var>|) de memoria y resulta preferible en redes dispersas, como las de infraestructura, donde cada nodo se conecta con pocos nodos.</p>
+
+            <pre class="code-block"><code>1 → 2, 3
+2 → 1, 3
+3 → 1, 2, 4
+4 → 3</code></pre>
+
+            <h4>Matriz de incidencia</h4>
+            <p>Es una matriz de tamaño <var>n</var> × <var>m</var> en la que cada columna representa una arista. En un grafo no dirigido, cada columna contiene exactamente dos unos, correspondientes a los dos extremos de la arista; los lazos se representan con un 2 en la fila del vértice.</p>
+          </article>
+
+          <article class="theory-item">
+            <h3><span class="h-num">2.6</span> Grafos ponderados, rutas mínimas y árboles de expansión mínima</h3>
+            <p>En un <strong>grafo ponderado</strong> cada arista tiene asociado un peso que representa distancia, tiempo, costo o cualquier otra magnitud relevante. El peso total de un subgrafo es la suma de los pesos de sus aristas, y es la cantidad que normalmente se desea minimizar.</p>
+
+            <div class="formula">
+              <p><var>w</var>: <var>E</var> → ℝ<sup>+</sup>, &nbsp;&nbsp; <var>w</var>(<var>T</var>) = ∑<sub><var>e</var> ∈ <var>T</var></sub> <var>w</var>(<var>e</var>)</p>
+              <span class="formula-note">Función de peso y peso total de un subgrafo <var>T</var></span>
+            </div>
+
+            <div class="theory-grid">
+              <div>
+                <h4>Ruta más corta: algoritmo de Dijkstra</h4>
+                <p>Dijkstra calcula la distancia mínima desde un vértice origen hasta todos los demás. Mantiene una distancia provisional para cada vértice, fija en cada paso el de menor distancia no visitado y actualiza a sus vecinos. Requiere que todos los pesos sean no negativos; con pesos negativos debe utilizarse Bellman-Ford.</p>
+
+                <h4>Árbol de expansión mínima: Kruskal y Prim</h4>
+                <p>Un <strong>árbol de expansión mínima</strong> (MST, por sus siglas en inglés) conecta todos los vértices con el menor peso total posible. Kruskal ordena las aristas de menor a mayor y las acepta mientras no formen un ciclo; Prim crece el árbol desde un vértice eligiendo siempre la arista más barata que conecta el árbol con un vértice nuevo. Ambos son algoritmos voraces con garantía de optimalidad.</p>
+
+                <h4>Coloración de grafos</h4>
+                <p>Una coloración propia asigna colores a los vértices de modo que dos adyacentes nunca compartan color. El mínimo número de colores necesarios es el <strong>número cromático</strong> χ(<var>G</var>). El algoritmo voraz garantiza a lo sumo Δ + 1 colores, y el teorema de los cuatro colores asegura que todo grafo plano puede colorearse con cuatro.</p>
+              </div>
+              <div>
+                <figure class="media-figure">
+                  <svg viewBox="0 0 480 300" role="img" aria-label="Grafo ponderado de seis vértices con distancias entre A y F; se destacan los pesos de cada arista.">
+                    <line class="svg-edge" x1="50" y1="80" x2="210" y2="45"/>
+                    <line class="svg-edge" x1="50" y1="80" x2="160" y2="170"/>
+                    <line class="svg-edge" x1="210" y1="45" x2="160" y2="170"/>
+                    <line class="svg-edge" x1="210" y1="45" x2="320" y2="125"/>
+                    <line class="svg-edge" x1="160" y1="170" x2="320" y2="125"/>
+                    <line class="svg-edge" x1="160" y1="170" x2="275" y2="250"/>
+                    <line class="svg-edge" x1="320" y1="125" x2="275" y2="250"/>
+                    <line class="svg-edge" x1="320" y1="125" x2="430" y2="195"/>
+                    <line class="svg-edge" x1="275" y1="250" x2="430" y2="195"/>
+                    <circle class="svg-node" cx="50" cy="80" r="16"/>
+                    <circle class="svg-node" cx="210" cy="45" r="16"/>
+                    <circle class="svg-node" cx="160" cy="170" r="16"/>
+                    <circle class="svg-node" cx="320" cy="125" r="16"/>
+                    <circle class="svg-node" cx="275" cy="250" r="16"/>
+                    <circle class="svg-node" cx="430" cy="195" r="16"/>
+                    <text class="svg-label" x="50" y="85" text-anchor="middle">A</text>
+                    <text class="svg-label" x="210" y="50" text-anchor="middle">B</text>
+                    <text class="svg-label" x="160" y="175" text-anchor="middle">C</text>
+                    <text class="svg-label" x="320" y="130" text-anchor="middle">D</text>
+                    <text class="svg-label" x="275" y="255" text-anchor="middle">E</text>
+                    <text class="svg-label" x="430" y="200" text-anchor="middle">F</text>
+                    <text class="svg-weight" x="122" y="52">4</text>
+                    <text class="svg-weight" x="78" y="128">2</text>
+                    <text class="svg-weight" x="197" y="100">1</text>
+                    <text class="svg-weight" x="272" y="70">5</text>
+                    <text class="svg-weight" x="236" y="138">8</text>
+                    <text class="svg-weight" x="188" y="214">10</text>
+                    <text class="svg-weight" x="312" y="188">2</text>
+                    <text class="svg-weight" x="380" y="148">6</text>
+                    <text class="svg-weight" x="348" y="240">3</text>
+                  </svg>
+                  <figcaption><span class="fig-label">Figura 2.</span> Red ponderada de seis nodos. Los pesos representan distancias en kilómetros; el camino mínimo entre A y F se resuelve en el Ejemplo 2.</figcaption>
+                </figure>
+              </div>
+            </div>
+
+            <p>La elección del algoritmo depende del problema. Dijkstra responde «¿cómo llego de un punto a otro con el menor costo?»; Kruskal o Prim responden «¿cómo conecto todos los nodos con el menor costo total?». Ambos enfoques comparten la misma lógica: construir la solución de forma incremental, tomando en cada paso la alternativa más económica que preserve la validez de la solución.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+    <!-- ===================== EJEMPLOS RESUELTOS ===================== -->
+    <section class="section" id="ejemplos">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="section-num" aria-hidden="true">03</span>
+          <div>
+            <h2>Ejemplos resueltos</h2>
+            <p class="section-kicker">Tres ejercicios organizados por nivel de dificultad, con procedimiento, explicación y respuesta final.</p>
+          </div>
+        </div>
+
+        <p class="lead">Los ejercicios recorren las tres habilidades centrales del tema: verificar la coherencia de un grafo mediante grados, calcular una ruta óptima y construir una red de costo mínimo. Cada panel puede reutilizarse como plantilla para nuevos enunciados.</p>
+
+        <div class="stack" style="margin-top: 1.5rem;">
+          <!-- ---------- EJEMPLO BÁSICO ---------- -->
+          <article class="example level-basic" aria-labelledby="ejemplo-basico">
+            <div class="example__head">
+              <span class="level-badge">Nivel básico</span>
+              <h3 id="ejemplo-basico">Grados y teorema del apretón de manos</h3>
+              <span class="tag">Grafos no dirigidos</span>
+            </div>
+            <div class="example__body">
+              <div class="field">
+                <p class="field-label">Enunciado</p>
+                <p>Seis servidores, identificados como v1, v2, v3, v4, v5 y v6, están conectados en anillo. Para aumentar la redundancia se añaden dos enlaces directos: v1–v3 y v3–v5. Determine el grado de cada servidor, la suma de grados y el número de aristas del grafo. Verifique el resultado con el teorema del apretón de manos.</p>
+                <figure class="media-figure">
+                  <svg viewBox="0 0 300 300" role="img" aria-label="Ciclo de seis vértices con dos cuerdas destacadas en color: de v1 a v3 y de v3 a v5.">
+                    <line class="svg-edge" x1="150" y1="45" x2="241" y2="97.5"/>
+                    <line class="svg-edge" x1="241" y1="97.5" x2="241" y2="202.5"/>
+                    <line class="svg-edge" x1="241" y1="202.5" x2="150" y2="255"/>
+                    <line class="svg-edge" x1="150" y1="255" x2="59" y2="202.5"/>
+                    <line class="svg-edge" x1="59" y1="202.5" x2="59" y2="97.5"/>
+                    <line class="svg-edge" x1="59" y1="97.5" x2="150" y2="45"/>
+                    <line class="svg-edge svg-edge--hl" x1="150" y1="45" x2="241" y2="202.5"/>
+                    <line class="svg-edge svg-edge--hl" x1="241" y1="202.5" x2="59" y2="202.5"/>
+                    <circle class="svg-node" cx="150" cy="45" r="17"/>
+                    <circle class="svg-node" cx="241" cy="97.5" r="17"/>
+                    <circle class="svg-node" cx="241" cy="202.5" r="17"/>
+                    <circle class="svg-node" cx="150" cy="255" r="17"/>
+                    <circle class="svg-node" cx="59" cy="202.5" r="17"/>
+                    <circle class="svg-node" cx="59" cy="97.5" r="17"/>
+                    <text class="svg-label" x="150" y="50" text-anchor="middle">v1</text>
+                    <text class="svg-label" x="241" y="102" text-anchor="middle">v2</text>
+                    <text class="svg-label" x="241" y="207" text-anchor="middle">v3</text>
+                    <text class="svg-label" x="150" y="260" text-anchor="middle">v4</text>
+                    <text class="svg-label" x="59" y="207" text-anchor="middle">v5</text>
+                    <text class="svg-label" x="59" y="102" text-anchor="middle">v6</text>
+                  </svg>
+                  <figcaption><span class="fig-label">Figura 3.</span> Anillo de seis servidores con los enlaces adicionales v1–v3 y v3–v5 resaltados. Las aristas resaltadas no alteran el ciclo, pero aumentan el grado de sus extremos.</figcaption>
+                </figure>
+              </div>
+
+              <div class="field">
+                <p class="field-label">Procedimiento paso a paso</p>
+                <ol class="steps">
+                  <li>Contar las aristas del anillo: v1–v2, v2–v3, v3–v4, v4–v5, v5–v6 y v6–v1, para un total de 6.</li>
+                  <li>Añadir las dos cuerdas indicadas: v1–v3 y v3–v5. El número total de aristas es |<var>E</var>| = 6 + 2 = 8.</li>
+                  <li>Calcular el grado de cada vértice contando las aristas incidentes: <var>g</var>(v1) = 3, <var>g</var>(v2) = 2, <var>g</var>(v3) = 4, <var>g</var>(v4) = 2, <var>g</var>(v5) = 3 y <var>g</var>(v6) = 2.</li>
+                  <li>Sumar los grados: 3 + 2 + 4 + 2 + 3 + 2 = 16.</li>
+                  <li>Comparar con el teorema: 2|<var>E</var>| = 2(8) = 16. La igualdad se cumple, por lo que el conteo es coherente.</li>
+                </ol>
+              </div>
+
+              <div class="field">
+                <p class="field-label">Explicación</p>
+                <p>Cada arista del anillo aporta un grado a dos servidores distintos; las cuerdas hacen lo mismo, pero se suman a los grados de v1, v3 y v5. El vértice v3 concentra cuatro conexiones porque pertenece al anillo y además es extremo de las dos cuerdas. Los únicos vértices de grado impar son v1 y v5: dos, una cantidad par, tal como exige el corolario del teorema. Si se hubiera contado una arista de más, la suma habría sido impar y el error sería detectable de inmediato.</p>
+              </div>
+
+              <div class="answer">
+                <p class="field-label">Respuesta final</p>
+                <p>Grados: <strong>(3, 2, 4, 2, 3, 2)</strong> para (v1, v2, v3, v4, v5, v6). La suma de grados es <strong>16</strong> y el grafo tiene <strong>8 aristas</strong>; se verifica que 16 = 2 × 8. Hay exactamente <strong>dos vértices de grado impar</strong>, en concordancia con el teorema del apretón de manos.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- ---------- EJEMPLO INTERMEDIO ---------- -->
+          <article class="example level-inter" aria-labelledby="ejemplo-intermedio">
+            <div class="example__head">
+              <span class="level-badge">Nivel intermedio</span>
+              <h3 id="ejemplo-intermedio">Ruta más corta con el algoritmo de Dijkstra</h3>
+              <span class="tag">Grafos ponderados</span>
+            </div>
+            <div class="example__body">
+              <div class="field">
+                <p class="field-label">Enunciado</p>
+                <p>La red de la Figura 2 representa seis estaciones (A–F) unidas por tramos con distancias en kilómetros. Un vehículo debe viajar desde la estación A hasta la estación F. Aplique el algoritmo de Dijkstra para determinar la ruta de menor distancia total e indique su costo.</p>
+                <p class="small muted">Aristas y pesos: A–B = 4, A–C = 2, B–C = 1, B–D = 5, C–D = 8, C–E = 10, D–E = 2, D–F = 6, E–F = 3.</p>
+              </div>
+
+              <div class="field">
+                <p class="field-label">Procedimiento paso a paso</p>
+                <ol class="steps">
+                  <li>Inicializar las distancias: <var>d</var>(A) = 0 y <var>d</var>(B) = <var>d</var>(C) = <var>d</var>(D) = <var>d</var>(E) = <var>d</var>(F) = ∞. El conjunto de vértices fijados está vacío.</li>
+                  <li>Fijar A, el de menor distancia (0). Actualizar sus vecinos: <var>d</var>(B) = 4 y <var>d</var>(C) = 2.</li>
+                  <li>Fijar C (2). Actualizar: <var>d</var>(B) = mín(4, 2 + 1) = 3, <var>d</var>(D) = 2 + 8 = 10 y <var>d</var>(E) = 2 + 10 = 12.</li>
+                  <li>Fijar B (3). Actualizar: <var>d</var>(D) = mín(10, 3 + 5) = 8. El resto de vecinos ya tiene una distancia menor.</li>
+                  <li>Fijar D (8). Actualizar: <var>d</var>(E) = mín(12, 8 + 2) = 10 y <var>d</var>(F) = 8 + 6 = 14.</li>
+                  <li>Fijar E (10). Actualizar: <var>d</var>(F) = mín(14, 10 + 3) = 13.</li>
+                  <li>Fijar F (13). No quedan vértices por procesar; la distancia mínima es 13 y la ruta se reconstruye retrocediendo por los predecesores: F ← E ← D ← B ← C ← A.</li>
+                </ol>
+
+                <div class="table-wrap">
+                  <table>
+                    <caption><strong>Tabla 3.</strong> Distancias provisionales después de fijar cada vértice. Los valores en negrita ya son definitivos.</caption>
+                    <thead>
+                      <tr>
+                        <th scope="col">Paso</th>
+                        <th scope="col">Fijado</th>
+                        <th scope="col" class="center">A</th>
+                        <th scope="col" class="center">B</th>
+                        <th scope="col" class="center">C</th>
+                        <th scope="col" class="center">D</th>
+                        <th scope="col" class="center">E</th>
+                        <th scope="col" class="center">F</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="center">0</td>
+                        <td>—</td>
+                        <td class="center"><strong>0</strong></td>
+                        <td class="center">∞</td>
+                        <td class="center">∞</td>
+                        <td class="center">∞</td>
+                        <td class="center">∞</td>
+                        <td class="center">∞</td>
+                      </tr>
+                      <tr>
+                        <td class="center">1</td>
+                        <td>A</td>
+                        <td class="center"><strong>0</strong></td>
+                        <td class="center">4</td>
+                        <td class="center">2</td>
+                        <td class="center">∞</td>
+                        <td class="center">∞</td>
+                        <td class="center">∞</td>
+                      </tr>
+                      <tr>
+                        <td class="center">2</td>
+                        <td>C</td>
+                        <td class="center"><strong>0</strong></td>
+                        <td class="center">3</td>
+                        <td class="center"><strong>2</strong></td>
+                        <td class="center">10</td>
+                        <td class="center">12</td>
+                        <td class="center">∞</td>
+                      </tr>
+                      <tr>
+                        <td class="center">3</td>
+                        <td>B</td>
+                        <td class="center"><strong>0</strong></td>
+                        <td class="center"><strong>3</strong></td>
+                        <td class="center"><strong>2</strong></td>
+                        <td class="center">8</td>
+                        <td class="center">12</td>
+                        <td class="center">∞</td>
+                      </tr>
+                      <tr>
+                        <td class="center">4</td>
+                        <td>D</td>
+                        <td class="center"><strong>0</strong></td>
+                        <td class="center"><strong>3</strong></td>
+                        <td class="center"><strong>2</strong></td>
+                        <td class="center"><strong>8</strong></td>
+                        <td class="center">10</td>
+                        <td class="center">14</td>
+                      </tr>
+                      <tr>
+                        <td class="center">5</td>
+                        <td>E</td>
+                        <td class="center"><strong>0</strong></td>
+                        <td class="center"><strong>3</strong></td>
+                        <td class="center"><strong>2</strong></td>
+                        <td class="center"><strong>8</strong></td>
+                        <td class="center"><strong>10</strong></td>
+                        <td class="center">13</td>
+                      </tr>
+                      <tr>
+                        <td class="center">6</td>
+                        <td>F</td>
+                        <td class="center"><strong>0</strong></td>
+                        <td class="center"><strong>3</strong></td>
+                        <td class="center"><strong>2</strong></td>
+                        <td class="center"><strong>8</strong></td>
+                        <td class="center"><strong>10</strong></td>
+                        <td class="center"><strong>13</strong></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="field">
+                <p class="field-label">Explicación</p>
+                <p>Dijkstra es correcto porque, con pesos no negativos, el vértice no fijado de menor distancia provisional ya no puede mejorarse por ningún camino posterior: cualquier otra ruta pasaría por un vértice con distancia igual o mayor. La tabla muestra cómo la distancia a D baja de 10 a 8 al considerar el camino A–C–B–D, y cómo la distancia a F baja de 14 a 13 al pasar por E. La ruta A–B–D–E–F también llega a F, pero con costo 14; el algoritmo descarta esa alternativa sin evaluarla de forma exhaustiva.</p>
+              </div>
+
+              <div class="answer">
+                <p class="field-label">Respuesta final</p>
+                <p>La ruta de menor distancia es <strong>A → C → B → D → E → F</strong>, con un recorrido total de <strong>2 + 1 + 5 + 2 + 3 = 13 km</strong>. Ninguna otra ruta supera ese resultado con un costo menor; la segunda mejor opción encontrada cuesta 14 km.</p>
+              </div>
+            </div>
+          </article>
+          <!-- ---------- EJEMPLO AVANZADO ---------- -->
+          <article class="example level-adv" aria-labelledby="ejemplo-avanzado">
+            <div class="example__head">
+              <span class="level-badge">Nivel avanzado</span>
+              <h3 id="ejemplo-avanzado">Árbol de expansión mínima con el algoritmo de Kruskal</h3>
+              <span class="tag">Optimización en redes</span>
+            </div>
+            <div class="example__body">
+              <div class="field">
+                <p class="field-label">Enunciado</p>
+                <p>Una empresa debe conectar cinco sucursales (A, B, C, D y E) mediante enlaces de datos. Los costos de instalación, en miles de quetzales, se resumen en la Tabla 4. Determine el árbol de expansión mínima aplicando el algoritmo de Kruskal, especifique las aristas seleccionadas y calcule el costo total de la red.</p>
+
+                <div class="table-wrap">
+                  <table>
+                    <caption><strong>Tabla 4.</strong> Aristas candidatas y costo de instalación (miles de quetzales).</caption>
+                    <thead>
+                      <tr>
+                        <th scope="col">Arista</th>
+                        <th scope="col" class="num">Costo</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>A–B</td><td class="num">2</td></tr>
+                      <tr><td>A–C</td><td class="num">3</td></tr>
+                      <tr><td>B–C</td><td class="num">1</td></tr>
+                      <tr><td>B–D</td><td class="num">4</td></tr>
+                      <tr><td>C–D</td><td class="num">5</td></tr>
+                      <tr><td>C–E</td><td class="num">6</td></tr>
+                      <tr><td>D–E</td><td class="num">7</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="field">
+                <p class="field-label">Procedimiento paso a paso</p>
+                <ol class="steps">
+                  <li>Modelar la red como un grafo conexo y ponderado con |<var>V</var>| = 5 vértices y |<var>E</var>| = 7 aristas candidatas.</li>
+                  <li>Ordenar las aristas de menor a mayor costo: B–C (1), A–B (2), A–C (3), B–D (4), C–D (5), C–E (6), D–E (7).</li>
+                  <li>B–C (1): se acepta porque conecta dos componentes distintas. Costo acumulado: 1.</li>
+                  <li>A–B (2): se acepta, une A con la componente {B, C}. Acumulado: 3.</li>
+                  <li>A–C (3): se rechaza, porque A y C ya están conectados por el camino A–B–C y la arista formaría un ciclo.</li>
+                  <li>B–D (4): se acepta, incorpora D. Acumulado: 7. Luego C–D (5) se rechaza por ciclo y C–E (6) se acepta, con lo que se alcanzan |<var>V</var>| − 1 = 4 aristas. El algoritmo se detiene; D–E no se evalúa.</li>
+                </ol>
+
+                <div class="table-wrap">
+                  <table>
+                    <caption><strong>Tabla 5.</strong> Traza del algoritmo de Kruskal sobre las aristas ordenadas.</caption>
+                    <thead>
+                      <tr>
+                        <th scope="col">Orden</th>
+                        <th scope="col">Arista</th>
+                        <th scope="col" class="num">Costo</th>
+                        <th scope="col">¿Forma ciclo?</th>
+                        <th scope="col">Decisión</th>
+                        <th scope="col" class="num">Acumulado</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr><td class="center">1</td><td>B–C</td><td class="num">1</td><td>No</td><td>Aceptar</td><td class="num">1</td></tr>
+                      <tr><td class="center">2</td><td>A–B</td><td class="num">2</td><td>No</td><td>Aceptar</td><td class="num">3</td></tr>
+                      <tr><td class="center">3</td><td>A–C</td><td class="num">3</td><td>Sí</td><td>Rechazar</td><td class="num">3</td></tr>
+                      <tr><td class="center">4</td><td>B–D</td><td class="num">4</td><td>No</td><td>Aceptar</td><td class="num">7</td></tr>
+                      <tr><td class="center">5</td><td>C–D</td><td class="num">5</td><td>Sí</td><td>Rechazar</td><td class="num">7</td></tr>
+                      <tr><td class="center">6</td><td>C–E</td><td class="num">6</td><td>No</td><td>Aceptar</td><td class="num">13</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="field">
+                <p class="field-label">Explicación</p>
+                <p>Kruskal se apoya en la <strong>propiedad del ciclo</strong>: al recorrer las aristas en orden creciente, cualquier arista que cierre un ciclo une dos vértices que ya están conectados por aristas de costo igual o menor, por lo que no puede formar parte de un árbol de expansión mínima. La estructura de conjuntos disjuntos (<em>union-find</em>) permite comprobar esa condición de forma eficiente, con un costo total de <var>O</var>(|<var>E</var>| log |<var>E</var>|) dominado por la ordenación. El resultado es óptimo para el costo total, aunque no necesariamente minimiza la ruta entre cada par de nodos: esa es una decisión distinta, que corresponde a un problema de camino mínimo.</p>
+              </div>
+
+              <div class="answer">
+                <p class="field-label">Respuesta final</p>
+                <p>El árbol de expansión mínima está formado por las aristas <strong>B–C (1), A–B (2), B–D (4) y C–E (6)</strong>. Conecta los cinco vértices con <strong>4 aristas</strong> y un costo total de <strong>1 + 2 + 4 + 6 = 13 mil quetzales</strong>. Las aristas A–C, C–D y D–E quedan fuera por formar ciclos o por haberse completado el árbol.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+    <!-- ===================== APLICACIÓN EN INGENIERÍA ===================== -->
+    <section class="section" id="aplicacion">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="section-num" aria-hidden="true">04</span>
+          <div>
+            <h2>Aplicación en ingeniería</h2>
+            <p class="section-kicker">Caso práctico: diseño de la red de fibra óptica de un campus universitario.</p>
+          </div>
+        </div>
+
+        <p class="lead">El siguiente caso muestra cómo un problema de infraestructura se traduce en un grafo ponderado y se resuelve con las herramientas desarrolladas. La estructura de la respuesta sigue cuatro aspectos: situación, utilidad, aplicación y resultados.</p>
+
+        <div class="app-grid" style="margin-top: 1.5rem;">
+          <div class="app-block">
+            <h3><span class="app-num" aria-hidden="true">1</span> Situación o problema</h3>
+            <p>Una universidad necesita conectar seis edificios con fibra óptica para compartir servicios académicos y administrativos. El área de infraestructura identificó nueve tramos posibles; cada uno tiene un costo estimado en miles de quetzales, según la distancia, el tipo de terreno y la obra civil requerida. La institución exige que todos los edificios queden conectados y que la inversión inicial sea la menor posible.</p>
+
+            <div class="table-wrap">
+              <table>
+                <caption><strong>Tabla 6.</strong> Tramos candidatos y costo estimado (miles de quetzales).</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Enlace</th>
+                    <th scope="col" class="num">Costo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>E1–E2</td><td class="num">5</td></tr>
+                  <tr><td>E1–E3</td><td class="num">3</td></tr>
+                  <tr><td>E2–E3</td><td class="num">1</td></tr>
+                  <tr><td>E2–E4</td><td class="num">6</td></tr>
+                  <tr><td>E3–E4</td><td class="num">9</td></tr>
+                  <tr><td>E3–E5</td><td class="num">11</td></tr>
+                  <tr><td>E4–E5</td><td class="num">2</td></tr>
+                  <tr><td>E4–E6</td><td class="num">7</td></tr>
+                  <tr><td>E5–E6</td><td class="num">4</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="app-block">
+            <h3><span class="app-num" aria-hidden="true">2</span> Utilidad</h3>
+            <p>El modelo de grafos permite separar lo esencial del problema —edificios y costos de conexión— de los detalles de obra. Una vez construido, el grafo se puede analizar, comparar y reutilizar sin volver a interpretar el plano físico.</p>
+            <ul class="def-list">
+              <li>Permite comparar alternativas de cableado con un criterio cuantificable.</li>
+              <li>Detecta de inmediato los tramos que formarían ciclos innecesarios.</li>
+              <li>Justifica la inversión ante las autoridades con un costo mínimo demostrable.</li>
+              <li>Sirve de base para analizar redundancia, crecimiento futuro y capacidad.</li>
+            </ul>
+          </div>
+
+          <div class="app-block">
+            <h3><span class="app-num" aria-hidden="true">3</span> Aplicación para resolverlo</h3>
+            <ol class="steps">
+              <li>Modelar cada edificio como un vértice y cada tramo como una arista ponderada por su costo.</li>
+              <li>Verificar que el grafo es conexo: existe al menos un camino entre cualquier par de edificios.</li>
+              <li>Ordenar las nueve aristas de menor a mayor costo.</li>
+              <li>Aplicar Kruskal, aceptando una arista solo si conecta dos componentes distintas.</li>
+              <li>Detenerse al obtener |<var>V</var>| − 1 = 5 aristas, condición que garantiza un árbol de expansión.</li>
+              <li>Sumar los costos de las aristas seleccionadas y contrastar el resultado con la inversión total.</li>
+            </ol>
+          </div>
+
+          <div class="app-block">
+            <h3><span class="app-num" aria-hidden="true">4</span> Resultados obtenidos</h3>
+            <p>Kruskal selecciona cinco de los nueve tramos y descarta los cuatro restantes porque formarían ciclos o porque el árbol ya estaba completo. La red resultante conecta los seis edificios con un costo de 16 mil quetzales, frente a los 48 mil que costaría instalar todos los tramos.</p>
+
+            <div class="formula">
+              <p>Ahorro = 48 − 16 = <strong>32 mil quetzales</strong></p>
+              <span class="formula-note">Reducción del 66.7 % respecto de la alternativa completa</span>
+            </div>
+
+            <p class="small muted">La solución es óptima en costo total, pero un árbol no ofrece rutas alternativas. En la verificación se analiza el efecto de añadir un enlace de respaldo.</p>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 1.5rem;">
+          <h3 class="card-title">Verificación de la solución</h3>
+
+          <div class="kpis">
+            <div class="kpi">
+              <strong>6</strong>
+              <span>Edificios conectados</span>
+            </div>
+            <div class="kpi">
+              <strong>5</strong>
+              <span>Enlaces de fibra</span>
+            </div>
+            <div class="kpi">
+              <strong>Q16 000</strong>
+              <span>Inversión mínima</span>
+            </div>
+            <div class="kpi">
+              <strong>66.7 %</strong>
+              <span>Ahorro obtenido</span>
+            </div>
+          </div>
+
+          <figure class="media-figure">
+            <svg viewBox="0 0 480 300" role="img" aria-label="Red mínima de seis edificios. Las aristas seleccionadas se muestran en color y las descartadas con línea discontinua.">
+              <line class="svg-edge svg-edge--off" x1="50" y1="80" x2="210" y2="45"/>
+              <line class="svg-edge svg-edge--hl" x1="50" y1="80" x2="160" y2="170"/>
+              <line class="svg-edge svg-edge--hl" x1="210" y1="45" x2="160" y2="170"/>
+              <line class="svg-edge svg-edge--hl" x1="210" y1="45" x2="320" y2="125"/>
+              <line class="svg-edge svg-edge--off" x1="160" y1="170" x2="320" y2="125"/>
+              <line class="svg-edge svg-edge--off" x1="160" y1="170" x2="275" y2="250"/>
+              <line class="svg-edge svg-edge--hl" x1="320" y1="125" x2="275" y2="250"/>
+              <line class="svg-edge svg-edge--off" x1="320" y1="125" x2="430" y2="195"/>
+              <line class="svg-edge svg-edge--hl" x1="275" y1="250" x2="430" y2="195"/>
+              <circle class="svg-node svg-node--hl" cx="50" cy="80" r="18"/>
+              <circle class="svg-node svg-node--hl" cx="210" cy="45" r="18"/>
+              <circle class="svg-node svg-node--hl" cx="160" cy="170" r="18"/>
+              <circle class="svg-node svg-node--hl" cx="320" cy="125" r="18"/>
+              <circle class="svg-node svg-node--hl" cx="275" cy="250" r="18"/>
+              <circle class="svg-node svg-node--hl" cx="430" cy="195" r="18"/>
+              <text class="svg-label svg-label--small" x="50" y="85" text-anchor="middle">E1</text>
+              <text class="svg-label svg-label--small" x="210" y="50" text-anchor="middle">E2</text>
+              <text class="svg-label svg-label--small" x="160" y="175" text-anchor="middle">E3</text>
+              <text class="svg-label svg-label--small" x="320" y="130" text-anchor="middle">E4</text>
+              <text class="svg-label svg-label--small" x="275" y="255" text-anchor="middle">E5</text>
+              <text class="svg-label svg-label--small" x="430" y="200" text-anchor="middle">E6</text>
+              <text class="svg-weight svg-weight--hl" x="78" y="128">3</text>
+              <text class="svg-weight svg-weight--hl" x="197" y="100">1</text>
+              <text class="svg-weight svg-weight--hl" x="272" y="70">6</text>
+              <text class="svg-weight svg-weight--hl" x="312" y="188">2</text>
+              <text class="svg-weight svg-weight--hl" x="348" y="240">4</text>
+            </svg>
+            <figcaption><span class="fig-label">Figura 4.</span> Árbol de expansión mínima de la red del campus. Las aristas resaltadas suman 16 mil quetzales; las líneas discontinuas representan tramos descartados.</figcaption>
+          </figure>
+
+          <div class="table-wrap">
+            <table>
+              <caption><strong>Tabla 7.</strong> Aristas seleccionadas y costo acumulado de la red.</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Enlace</th>
+                  <th scope="col" class="num">Costo</th>
+                  <th scope="col" class="num">Acumulado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>E2–E3</td><td class="num">1</td><td class="num">1</td></tr>
+                <tr><td>E4–E5</td><td class="num">2</td><td class="num">3</td></tr>
+                <tr><td>E1–E3</td><td class="num">3</td><td class="num">6</td></tr>
+                <tr><td>E5–E6</td><td class="num">4</td><td class="num">10</td></tr>
+                <tr><td>E2–E4</td><td class="num">6</td><td class="num">16</td></tr>
+                <tr><td><strong>Total</strong></td><td class="num">—</td><td class="num"><strong>16</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>La solución cumple la restricción de conectividad y minimiza la inversión. Sin embargo, un árbol es vulnerable por definición: la falla de cualquiera de los cinco enlaces divide la red en dos componentes. Si se añade el tramo E1–E2, que cuesta 5 mil quetzales y es el más económico de los descartados, se crea el ciclo E1–E2–E3 y se restablece una ruta alternativa. La inversión sube a 21 mil quetzales, pero el ahorro frente a la red completa se mantiene en 27 mil quetzales (56.3 %). La decisión final combina el óptimo matemático con un criterio de disponibilidad: para un servicio crítico, el árbol mínimo es el punto de partida, no necesariamente la solución definitiva.</p>
+        </div>
+      </div>
+    </section>
+    <!-- ===================== CONCLUSIONES ===================== -->
+    <section class="section" id="conclusiones">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="section-num" aria-hidden="true">05</span>
+          <div>
+            <h2>Conclusiones</h2>
+            <p class="section-kicker">Aportes del tema y aprendizajes obtenidos durante el desarrollo del proyecto.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <ol class="conclusions">
+            <li class="conclusion">
+              <p><strong>El grafo es un modelo de decisión, no solo un dibujo.</strong> La teoría de grafos permitió transformar un problema de infraestructura en un conjunto de vértices, aristas y pesos que se puede analizar con precisión. El teorema del apretón de manos, aplicado al ejercicio básico, evidenció además que la suma de grados funciona como una verificación objetiva: si el total es impar, el modelo contiene un error. Esta comprobación convierte una representación visual en un instrumento de control.</p>
+            </li>
+            <li class="conclusion">
+              <p><strong>Los algoritmos voraces resuelven problemas reales cuando se cumplen sus condiciones.</strong> Dijkstra encontró la ruta de 13 km entre A y F, y Kruskal redujo de 48 a 16 mil quetzales el costo de conexión del campus. En ambos casos, la optimalidad depende de condiciones concretas: pesos no negativos en Dijkstra y un grafo conexo en Kruskal. Comprender esas condiciones es tan importante como conocer el procedimiento, porque determina cuándo el resultado puede presentarse como demostración y cuándo solo como una aproximación.</p>
+            </li>
+            <li class="conclusion">
+              <p><strong>El criterio de ingeniería complementa el óptimo matemático.</strong> El árbol de expansión mínima es la solución de menor costo, pero también la más frágil: la falla de un solo enlace divide la red. El análisis mostró que un tramo adicional de 5 mil quetzales restablece la redundancia y conserva un ahorro del 56.3 %. Por lo tanto, la respuesta profesional no termina en el cálculo, sino en la evaluación del contexto, la disponibilidad requerida y el presupuesto disponible.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== REFERENCIAS ===================== -->
+    <section class="section" id="referencias">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="section-num" aria-hidden="true">06</span>
+          <div>
+            <h2>Referencias</h2>
+            <p class="section-kicker">Fuentes consultadas, presentadas con sangría francesa según APA séptima edición.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="callout">
+            <p class="callout__label">Nota de formato</p>
+            <p class="small">Las entradas se ordenan alfabéticamente por el apellido del autor, con el año entre paréntesis, el título en cursiva y la editorial. Para incorporar una fuente adicional, duplique un elemento de la lista y complete los datos; la sangría francesa se aplica automáticamente.</p>
+          </div>
+
+          <ul class="refs">
+            <li>Cormen, T. H., Leiserson, C. E., Rivest, R. L., &amp; Stein, C. (2022). <em>Introduction to algorithms</em> (4.ª ed.). MIT Press.</li>
+            <li>Diestel, R. (2017). <em>Graph theory</em> (5.ª ed.). Springer. <a href="https://doi.org/10.1007/978-3-662-53622-3">https://doi.org/10.1007/978-3-662-53622-3</a></li>
+            <li>Gross, J. L., Yellen, J., &amp; Anderson, M. (2019). <em>Graph theory and its applications</em> (3.ª ed.). CRC Press.</li>
+            <li>Rosen, K. H. (2019). <em>Discrete mathematics and its applications</em> (8.ª ed.). McGraw-Hill Education.</li>
+            <li>West, D. B. (2001). <em>Introduction to graph theory</em> (2.ª ed.). Prentice Hall.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== PIE DE PÁGINA ===================== -->
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div>
+        <p><strong>Teoría de Grafos</strong> · Micrositio académico</p>
+        <p>Universidad Mariano Gálvez de Guatemala · Facultad de Ingeniería en Sistemas</p>
+        <p>Matemática Discreta · Sección B · Segundo Semestre 2026</p>
+      </div>
+      <div class="footer-meta">
+        <p>Elaborado por <strong>Marvin José Díaz Ortega</strong></p>
+        <p>Carné 0903-26-23499</p>
+        <p>Guatemala, 31 de octubre de 2026</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
